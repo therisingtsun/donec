@@ -4,7 +4,7 @@ const dateTimeFormatStore = "YYYY-MM-DD hh:mm:ss A";
 document.addEventListener("DOMContentLoaded", function() {
 	let state = {
 		title: "1 hour timer",
-		time: moment().add(1, "hours").format(dateTimeFormatStore),
+		time: moment().add(5, "seconds").format(dateTimeFormatStore),
 		desc: "This is the default 1 hour timer..."
 	};
 
@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	$("#input-datetime")
 		.on("change", function() {
-			console.log(state);
 			let _targetMoment = moment($(this).val());
 			if (_targetMoment.isBefore(moment())) alert("Cannot set timer to the past! Please input again...");
 			else state.time = _targetMoment.format(dateTimeFormatStore);
@@ -61,7 +60,7 @@ function updateTimer(targetMoment) {
 		dArr.forEach(el => {
 			printCurrent = printCurrent || data[el];
 			const $display = $(`#display-${el}`);
-			if (printCurrent) {
+			if (printCurrent || el === "seconds") {
 				let displayVal = Math.abs(data[el]).toString();
 				if (displayVal.length < 2) displayVal = "0" + displayVal;
 				$display.children(".display").html(displayVal);
