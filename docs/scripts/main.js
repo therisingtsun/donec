@@ -4,7 +4,7 @@ const dateTimeFormatStore = "YYYY-MM-DD hh:mm:ss A";
 document.addEventListener("DOMContentLoaded", function() {
 	let state = {
 		title: "1 hour timer",
-		time: moment().add(5, "seconds").format(dateTimeFormatStore),
+		time: moment().add(1, "hours").format(dateTimeFormatStore),
 		desc: "This is the default 1 hour timer..."
 	};
 
