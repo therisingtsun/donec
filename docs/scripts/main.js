@@ -1,10 +1,9 @@
-const dateTimeFormat = "YYYY-MM-DDThh:mm:ss";
-const dateTimeFormatStore = "YYYY-MM-DD hh:mm:ss A";
+const dateTimeFormat = "YYYY-MM-DDTHH:mm:ss";
 
 document.addEventListener("DOMContentLoaded", function() {
 	let state = {
 		title: "1 hour timer",
-		time: moment().add(1, "hours").format(dateTimeFormatStore),
+		time: moment().add(1, "hours").format(dateTimeFormat),
 		desc: "This is the default 1 hour timer..."
 	};
 
@@ -24,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		.on("change", function() {
 			let _targetMoment = moment($(this).val());
 			if (_targetMoment.isBefore(moment())) alert("Cannot set timer to the past! Please input again...");
-			else state.time = _targetMoment.format(dateTimeFormatStore);
+			else state.time = _targetMoment.format(dateTimeFormat);
 			$(this).val(moment(state.time).format(dateTimeFormat));
 			updateHash();
 		})
