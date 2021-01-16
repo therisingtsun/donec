@@ -27,13 +27,26 @@ body {
 	color: var(--f);
 }
 
-#timer-title {
-	margin: 2rem;
-	font-size: 4rem;
-	text-align: center;
+#title-bar {
+	display: flex;
+	flex-flow: row wrap;
+	height: 4rem;
+	padding: 1rem; margin-bottom: 4rem;
+	background-color: var(--bgD);
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: 0 0 0.5rem var(--bgD);
 }
 
-#timer-desc {
+#title-bar .title {
+	font-size: 3rem;
+}
+
+#title-bar .sub {
+	font-style: italic;
+}
+
+#timer-desc, #timer-title {
 	margin: 2rem;
 	padding: 1rem 8rem;
 	outline: none;
@@ -42,24 +55,25 @@ body {
 	transition: all 0.1s ease;
 }
 
-#timer-desc:focus {
-	border-color: var(--p);
-	border-radius: 0.25rem;
-	text-align: left;
+#timer-title {
+	padding: 2rem 8rem;
+	font-size: 4rem;
 }
 
+#timer-title:focus, #timer-desc:focus {
+	border-color: var(--p);
+	border-radius: 0.25rem;
+}
+
+
 @media (max-width: 1136px) {
-	#timer-desc {
-		padding: 1rem 2rem;
+	#timer-title, #timer-desc {
+		padding: 2rem 2rem;
 	}
 }
 
 #input-datetime {
 	font-size: 1.25rem;
-}
-
-#input-datetime.hidden {
-	display: none;
 }
 
 #timer-display {

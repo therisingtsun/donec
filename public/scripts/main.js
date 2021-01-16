@@ -1,7 +1,23 @@
+const dateTimeFormat = "YYYY-MM-DDThh:mm:ss";
 
 document.addEventListener("DOMContentLoaded", function() {
+	let state = {
+		title: "1 hour timer",
+		time: moment().add(1, "hours"),
+		desc: "This is the default 1 hour timer..."
+	};
 
-	const targetMoment = moment().add(5, "seconds").add(1, "hours");
+	window.location.hash = LZString.compressToBase64(state)
+
+	$("#input-datetime")
+		.on("change", function() {
+			let _targetMoment = moment($(this).val());
+			if (_targetMoment.isBefore(moment())) alert("Cannot set timer to the past! Please input again...");
+			else targetMoment = _targetMoment;
+			$(this).val(targetMoment.format(dateTimeFormat));
+		})
+		.val(targetMoment.format(dateTimeFormat));
+
 	
 	updateTimer(targetMoment);
 	setInterval(() => updateTimer(targetMoment), 1000);
