@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;700&display=swap');
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+:root {
+	--bg: #dbf8ff; --bgD: #65a2b1;
+	--p: #ff5185; --pD: #b81445;
+	--f: #424b5b;
+
+	font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
+	line-height: calc(1.5em + (2 - 1.5) * ((100vw - 300px) / (1600 - 300)));
+}
+
+html, body {
+	position: absolute;
+	top: 0; left: 0;
+	margin: 0; padding: 0;
+	width: 100%; height: 100%;
+}
+
+body {
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	background-color: var(--bg);
+	color: var(--f);
+}
+
+#timer-title {
+	margin: 2rem;
+	font-size: 4rem;
+	text-align: center;
+}
+
+#timer-desc {
+	margin: 2rem;
+	padding: 1rem 8rem;
+	outline: none;
+	border: 0.15rem solid var(--bgD);
+	border-radius: 0.5rem;
+	transition: all 0.1s ease;
+}
+
+#timer-desc:focus {
+	border-color: var(--p);
+	border-radius: 0.25rem;
+	text-align: left;
+}
+
+@media (max-width: 1136px) {
+	#timer-desc {
+		padding: 1rem 2rem;
+	}
+}
+
+#input-datetime {
+	font-size: 1.25rem;
+}
+
+#input-datetime.hidden {
+	display: none;
+}
+
+#timer-display {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	margin: 2rem;
+	margin-bottom: 0;
+}
+
+#timer-display .unit {
+	margin: 1rem;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: space-around;
+}
+
+#timer-display .unit.hidden {
+	display: none;
+}
+
+#timer-display .unit .display {
+	min-width: 2ch; height: 4.5rem;
+	font-size: 4.5rem;
+	line-height: 1;
+	text-align: right;
+	font-family: 'Ubuntu Mono', monospace;
+}
