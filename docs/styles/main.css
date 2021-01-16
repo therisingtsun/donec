@@ -58,6 +58,7 @@ body {
 #timer-title {
 	padding: 2rem 8rem;
 	font-size: 4rem;
+	line-height: 1;
 }
 
 #timer-title:focus, #timer-desc:focus {
