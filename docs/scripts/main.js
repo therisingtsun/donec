@@ -1,31 +1,56 @@
 const dateTimeFormat = "YYYY-MM-DDThh:mm:ss";
+const dateTimeFormatStore = "YYYY-MM-DD hh:mm:ss A";
 
 document.addEventListener("DOMContentLoaded", function() {
 	let state = {
 		title: "1 hour timer",
-		time: moment().add(1, "hours"),
+		time: moment().add(1, "hours").format(dateTimeFormatStore),
 		desc: "This is the default 1 hour timer..."
 	};
 
-	window.location.hash = LZString.compressToBase64(state)
+	if (window.location.hash) {
+		try {
+			state = JSON.parse(LZString.decompressFromBase64(window.location.hash.substring(1)));
+		} catch {
+			console.error("Invalid URL, using defaults");
+		}
+	}
 
+	function updateHash() {
+		window.location.hash = LZString.compressToBase64(JSON.stringify(state));
+	}
+	
 	$("#input-datetime")
 		.on("change", function() {
+			console.log(state);
 			let _targetMoment = moment($(this).val());
 			if (_targetMoment.isBefore(moment())) alert("Cannot set timer to the past! Please input again...");
-			else targetMoment = _targetMoment;
-			$(this).val(targetMoment.format(dateTimeFormat));
+			else state.time = _targetMoment.format(dateTimeFormatStore);
+			$(this).val(moment(state.time).format(dateTimeFormat));
+			updateHash();
 		})
-		.val(targetMoment.format(dateTimeFormat));
+		.val(moment(state.time).format(dateTimeFormat));
+	$("#timer-title")
+		.on("input", function() {
+			state.title = $(this).text();
+			updateHash();
+		})
+		.text(state.title);
+	$("#timer-desc")
+		.on("input", function() {
+			state.desc = $(this).text();
+			updateHash();
+		})
+		.text(state.desc);
 
-	
-	updateTimer(targetMoment);
-	setInterval(() => updateTimer(targetMoment), 1000);
+	updateTimer(state.time);
+	setInterval(() => updateTimer(state.time), 1000);
 	
 });
 
 function updateTimer(targetMoment) {
 	const current = moment();
+	targetMoment = moment(targetMoment);
 	if (current.isBefore(targetMoment)) {
 		const diff = moment.duration(current.diff(targetMoment));
 		const data = Object.assign(Object.create(null), diff._data);
@@ -45,6 +70,5 @@ function updateTimer(targetMoment) {
 				$display.addClass("hidden");
 			}
 		});;
-					
 	}
 }
